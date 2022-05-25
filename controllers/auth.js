@@ -16,7 +16,7 @@ const createUser = async (req, res = response) => {
     if (user) {
       return res
         .status(400)
-        .json({ ok: true, msg: "Existe un usuario con ese correo" });
+        .json({ ok: false, msg: "Existe un usuario con ese correo" });
     }
     user = new User(req.body);
 
@@ -48,9 +48,10 @@ const loginUser = async (req, res = response) => {
     let user = await User.findOne({ email: email });
     //console.log(user);
     if (!user) {
-      return res
-        .status(400)
-        .json({ ok: true, msg: "El usuario o la contraseña no son correctos" });
+      return res.status(400).json({
+        ok: false,
+        msg: "El usuario o la contraseña no son correctos",
+      });
     }
 
     //Confirmar password
